@@ -31,3 +31,13 @@ pollutantmean <- function (directory= ".", pollutant, id= 1:332){
 pollutant_mean<- round(mean(c_comb[,pollutant], na.rm=TRUE), digits = 3)
 return(pollutant_mean)
 }
+
+
+
+
+c_i <- <- read.csv("./specdata/001.csv", header = TRUE, sep = ",", na.strings = "NA")
+id_i <- id <- c_i$ID[1]
+check_i <- complete.cases(c_i)
+nobs_i <- sum(check_i)
+summary_i <- data.frame(c("id" = id_i, "nobs" = nobs_i))
+
