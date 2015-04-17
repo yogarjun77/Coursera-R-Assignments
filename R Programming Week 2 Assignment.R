@@ -84,3 +84,43 @@ pollutantmean <- function (directory= ".", pollutant, id= 1:332)
 	return(complete)
 
 	}
+
+#Part 3 - Corr
+
+
+corr <- function(directory, threshold = 0) {
+
+dir_path <- paste(getwd(),"/", directory, "/", sep="")
+csv_filename <-list.files(dir_path)
+
+id <- c(1:length(csv_filename))
+
+master_summary <- NULL
+
+	for(i in seq_along(id))
+	{
+
+
+	c_i <- read.csv(paste(dir_path, csv_filename[id[i]], sep = ""), header = TRUE, sep = ",")
+	
+	
+	crr_i <- cor(c_i$sulfate, c_i$nitrate, "pairwise.complete.obs")
+
+	comp_i <- complete.cases(c_i)
+	
+	
+	summary_i <- c(crr_i, sum(comp_i))
+	
+	master_summary <- rbind(master_summary, summary_i)
+
+	}
+
+	
+	corr <- na.omit(as.vector(subset(master_summary[,1], master_summary[,2] >= threshold)))
+
+
+	return(corr)
+
+
+}
+
